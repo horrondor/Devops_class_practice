@@ -1,4 +1,0 @@
-#!/bin/bash
-#Demo3
-#
-#
