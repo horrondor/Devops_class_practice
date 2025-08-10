@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Exit if any command fails
+
+echo -e "\n=== Checking for security updates of nobale ===\n"
+
+
+sudo apt update
+
+security_updates=$(apt list --upgradable 2>/dev/null | grep noble-security | cut -d/ -f1)
+
+if [ -z "$security_updates" ]; then
+   echo "No updates available"
+   exit 0   
+fi
+
+echo "$security_updates"
+
+sudo apt install --only-upgrade $security_updates
+
+

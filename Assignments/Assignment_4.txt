@@ -1,0 +1,26 @@
+
+
+
+
+1.How is container technology possible in Windows OS?
+
+	 Container technology in windows is possible by leveraging specific feature of isolating  user mode processes. In windows there is a system service called Hosts Compute Services (HCS which acts as a public interface to the underlying container capabilities provided by kernel. This service exposes low-level container functionalities via a public API, allowing higher-level tools to interact with the container system . The HCS is responsible for launching containers, tracking their state and managing restarts.
+
+2.What are the Linux kernels's feature that made container technology possible?
+ 
+ The Linux kernel's features that made container technology possible are namespaces and control groups (cgroups). Namespaces provide isolation for processes by creating separate views of the operating environment, including process IDs, network interfaces, user IDs, and mounted file systems, allowing each container to have its own isolated space. Cgroups enable the limitation, prioritization, and accounting of resources such as CPU, memory, disk I/O, and network usage for groups of processes, ensuring that containers cannot exhaust host resources.
+
+3. Can we run Linux containers on Windows OS and vice-versa? if yes how and if no how?
+ 
+ Yes, Linux containers can be run on Windows OS by using linux virtual machine running in the background typically based on Hyper-V 0r linux-kit to host the linux containers.
+	Yes,windows containers can be run on Linux OS  by using a virtual machine. A Windows OS must be installed within a VM on the Linux host, and Docker can then be run inside that Windows VM to manage the Windows containers 
+
+4.Can we run Linux containers on Mac OS and vice-versa? if yes how and if no how?
+ 
+ Yes,Linux containers can be run macos by running Linux virtual machine in the background and executing containers within that VM.
+
+	Yes,macos containers can be run using a tool called docker-osx  to run a virtualized macOS instance within a Linux system.This process involves using a Docker container that runs QEMU, a hardware emulator, to create a virtual machine with a preinstalled macOS image (such as Big Sur or Monterey).
+
+5.Can we run Mac OS containers on Windows and vice-versa? If yes how and if no how?
+
+	Yes, mac Os conatiners can be run on windows and vice-versa bu using linux virtual machine in the background. 	
