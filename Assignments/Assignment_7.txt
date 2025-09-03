@@ -1,0 +1,62 @@
+      Task 1: Download apache tomcat for linux OS 
+
+step1: Download apache-tomcat-11.0.10.tar.gz using 
+       curl https://dlcdn.apache.org/tomcat/tomcat-11/v11.0.10/bin/apache-tomcat-11.0.10.tar.gz -o apache-tomcat-11.0.10.tar.gz 
+
+step 2: unzip tar file using tar -xzvf apache-tomcat-11.0.10.tar.gz 
+
+step 3: Move to /opt folder using sudo mv apache-tomcat-11.0.10 /opt/tomcat
+
+step 4: change directory by using cd /opt/tomcat
+
+step 5: Use ./startup.sh for starting a tomcat and ./shutdown.sh for shutting down tomcat
+
+
+
+      Task 2: Create a service for managing apache tomcat with the command systemctl start/stop/restart/status apache-tomcat
+
+
+step1: create a tomcat group using sudo groupadd tomcat
+
+step2: Create a user called tomcat and assign it no login shell, home directory.
+       useradd -s /sbin/nologin -g tomcat -d /opt/tomcat tomcat
+
+step3: Change ownership of folder /opt/tomcat
+       sudo chown -R tomcat:tomcat /opt/tomcat
+
+step 4: make a tomcat service file using  vi /etc/systemd/system/tomcat.service
+        and paste folowing 
+                        [Unit]
+                Description=Apache Tomcat Web Application Container
+                After=network.target
+
+                [Service]
+                Type=forking
+
+                User=tomcat
+                Group=tomcat
+
+                Environment=JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+                Environment=CATALINA_PID=/opt/tomcat/temp/tomcat.pid
+                Environment=CATALINA_HOME=/opt/tomcat
+                Environment=CATALINA_BASE=/opt/tomcat
+                Environment='CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC'
+                Environment='JAVA_OPTS=-Djava.security.egd=file:/dev/./urandom'
+
+                ExecStart=/opt/tomcat/bin/startup.sh
+                ExecStop=/opt/tomcat/bin/shutdown.sh
+
+                Restart=on-failure
+
+                [Install]
+                WantedBy=multi-user.target
+
+       
+step 5: Reload daemon 
+        sudo systemctl  daemon-reload       
+
+step 6: start tomcat servcie 
+        sudo systemctl start  tomcat.service
+
+step 7 : install java jdf if not installed 
+         sudo apt install openjdk-17-jdk -y
