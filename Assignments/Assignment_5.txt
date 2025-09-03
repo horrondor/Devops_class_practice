@@ -1,0 +1,11 @@
+1. ADD vs COPY
+
+ADD and COPY are functionally similar. COPY supports basic copying of files into the container, from the build context or from a stage in a multi-stage build. ADD supports features for fetching files from remote HTTPS and Git URLs, and extracting tar files automatically when adding files from the build context.
+
+    
+2. CMD vs ENTRYPOINT
+
+If there is multiple CMD instruction  on a dockerfile then the last one will 
+take effect and it can also be  overriden at runtime. If an ENTRYPOINT is specified in dockerfile then CMD provides the default arguements for that ENTRYPOINT.
+
+Unlike CMD ENTRYPOINT instruction cann't be overriden at runtime  and if an arguements are passed  at runtime then commands get appended rather than overridden.
